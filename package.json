@@ -1,7 +1,6 @@
 {
   "name": "zn-store",
   "version": "1.0.0",
-  "description": "ZN Store",
   "private": true,
   "type": "module",
   "dependencies": {
