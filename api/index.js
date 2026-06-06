@@ -57,7 +57,7 @@ const K = {
   notifications:  (uid)=> `zn:notif:${uid}`,
   withdrawals:    () => 'zn:withdrawals',
   withdrawal:     (id) => `zn:withdrawal:${id}`,
-  withdrawalIds:  () => 'zn:withdrawal:ids`,
+  withdrawalIds:  () => 'zn:withdrawal:ids',
   shipping:       () => 'zn:shipping',
   rateLimits:     (ip) => `zn:rl:${ip}`,
 };
@@ -1342,4 +1342,5 @@ export default async function handler(req) {
     return jsonResponse(fail('خطأ في السيرفر: ' + (e.message || 'unknown')), 500);
   }
 }
+
 
