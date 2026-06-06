@@ -7,7 +7,6 @@
 import { Redis } from '@upstash/redis';
 import { put, del } from '@vercel/blob';
 import crypto from 'crypto';
-import sharp from 'sharp';
 
 // ─── Redis Client ────────────────────────────────────────────
 const redis = new Redis({
@@ -345,20 +344,7 @@ async function notifyUser(userId, text) {
 
 // ─── Backblaze B2 ─────────────────────────────────────────────
 async function uploadToB2(buffer, originalName) {
-  // ضغط الصورة باستخدام sharp
-  let imageBuffer = buffer;
-  try {
-    const img = sharp(buffer);
-    const meta = await img.metadata();
-    if (meta.width > 1200) {
-      imageBuffer = await img
-        .resize(1200, null, { withoutEnlargement: true })
-        .jpeg({ quality: 82 })
-        .toBuffer();
-    } else {
-      imageBuffer = await img.jpeg({ quality: 82 }).toBuffer();
-    }
-  } catch {}
+  const imageBuffer = buffer;
 
   const fileName = `img_${Date.now()}_${Math.random().toString(36).slice(2)}.jpg`;
   const uploadUrl = `https://${B2_ENDPOINT}/${B2_BUCKET}/${fileName}`;
